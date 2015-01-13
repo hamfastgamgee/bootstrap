@@ -544,11 +544,13 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
         });
       });
 
-      // Outter change
-      ngModel.$render = function() {
-        var date = ngModel.$viewValue ? dateFilter(ngModel.$viewValue, dateFormat) : '';
-        element.val(date);
-        scope.date = parseDate( ngModel.$modelValue );
+      // Outer change
+      ngModel.$render = function () {
+        if (dateFormat) {
+          var date = ngModel.$viewValue ? dateFilter(ngModel.$viewValue, dateFormat) : '';
+          element.val(date);
+          scope.date = parseDate(ngModel.$modelValue);
+        }
       };
 
       var documentClickBind = function(event) {
